@@ -10,43 +10,59 @@ const Login = () => {
   const [role, setrole] = useState('');
   const [department, setdepartment] = useState('');
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const usersResponse = await fetch('http://localhost:3002/hod');
-      const users = await usersResponse.json();
-console.log()
-       
-              const userExists = users.some(
-           user =>
-          user.name === name &&
-          user.email === email &&
-          user.password === password &&
-          user.role === role &&
-          user.department === department
-         );
+  try {
+    const res = await fetch("http://localhost:3002/hod");
+    const data = await res.json();
 
-      if (!userExists) {
-        alert("Name, email, or password is incorrect");
-        return;
-      }
+    console.log("Fetched users:", data);
 
-      alert("Login successful!");
-
-  
-
-      navigate('/JNTUHUCEJ', {
-  state: {
-    name: name,
-    email: email,
-    role: role,
-    department:department,
-  },
-});
-    } catch (error) {
-      console.error('Error:', error);
+    if (!Array.isArray(data) || data.length === 0) {
+      alert("No users found from backend!");
+      return;
     }
-  };
+
+    const normalize = (v) => (v ?? "").trim().toLowerCase();
+
+    const foundUser = data.find((u) => {
+      // extract all possible fields
+      const uname = u.name || u.user_name || "";
+      const uemail = u.email || u.user_email || "";
+      const upass = u.password || u.passwords || "";
+      const urole = u.role || "";
+      const udept = u.department || u.dept || "";
+
+      return (
+        normalize(uname) === normalize(name) &&
+        normalize(uemail) === normalize(email) &&
+        upass.trim() === password.trim() &&
+        normalize(urole) === normalize(role) &&
+        normalize(udept) === normalize(department)
+      );
+    });
+
+    console.log("Matched user:", foundUser);
+
+    if (!foundUser) {
+      alert("Name, email, or password is incorrect");
+      return;
+    }
+
+    alert("Login successful!");
+    navigate("/JNTUHUCEJ", {
+      state: {
+      name: foundUser.name || foundUser.user_name,
+      email: foundUser.email || foundUser.user_email,
+      role: foundUser.role,
+      department: foundUser.department || foundUser.dept,
+      },
+    });
+  } catch (err) {
+    console.error("Error:", err);
+    alert("Server error! Check console or backend.");
+  }
+};
   const [showPassword, setShowPassword] = useState(false);
 
   return (<>
