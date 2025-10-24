@@ -6,8 +6,14 @@ const http = require("http");
 const { Server } = require("socket.io");
 const path = require("path");
 const fs = require("fs");
+const cloudinary = require("cloudinary").v2;
+const dotenv = require("dotenv");
+
+dotenv.config(); // load .env variables
+
 const app = express();
 const port = 3002;
+
 const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
   cors: { origin: "*" },
@@ -16,28 +22,35 @@ const io = new Server(httpServer, {
 app.use(cors());
 app.use(bodyParser.json());
 
-require('dotenv').config(); // loads .env variables
+// ✅ Configure Cloudinary (real credentials)
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
-
-
+// ✅ Connect to MySQL
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
- ssl: {
-    ca: fs.readFileSync(path.join(__dirname, "certs/ca.pem"))
-  }
+  ssl: {
+    ca: fs.readFileSync(path.join(__dirname, "certs/ca.pem")),
+  },
 });
 
 db.connect((err) => {
   if (err) {
-    console.error("Database connection failed:", err);
+    console.error("❌ Database connection failed:", err);
   } else {
-    console.log("Database connected!");
+    console.log("✅ Database connected!");
   }
 });
+
+// Export db and io if needed
+module.exports = { db, io };
 
 
 // Routes
