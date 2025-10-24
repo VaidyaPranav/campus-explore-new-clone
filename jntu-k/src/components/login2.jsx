@@ -16,7 +16,7 @@ const StudentLogin = () => {
 
     try {
       // 👇 same structure as faculty — updated backend URL
-      const res = await fetch("http://localhost:3002/students");
+      const res = await fetch("https://campus-explore-portal.onrender.com/students");
       const data = await res.json();
 
       console.log("Fetched students:", data);

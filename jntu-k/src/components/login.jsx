@@ -13,7 +13,7 @@ const Login = () => {
   e.preventDefault();
 
   try {
-    const res = await fetch("http://localhost:3002/hod");
+    const res = await fetch("https://campus-explore-portal.onrender.com/hod");
     const data = await res.json();
 
     console.log("Fetched users:", data);

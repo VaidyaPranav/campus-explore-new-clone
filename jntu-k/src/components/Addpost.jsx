@@ -18,7 +18,7 @@ console.log(role);
   formData.append("media", selectedFile);  
 
   try {
-    const uploadRes = await axios.post("http://localhost:3002/api/upload", formData, {
+    const uploadRes = await axios.post("https://campus-explore-portal.onrender.com/api/upload", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -27,7 +27,7 @@ console.log(role);
     const media_url = uploadRes.data.url;
  
 
-    const res = await axios.post("http://localhost:3002/posts", {
+    const res = await axios.post("https://campus-explore-portal.onrender.com/posts", {
       name,
       user_email: email,
       content,

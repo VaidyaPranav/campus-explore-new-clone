@@ -15,7 +15,7 @@ let Profile = () => {
     if (!email) return;
 
     axios
-      .get("http://localhost:3002/posts")  
+      .get("https://campus-explore-portal.onrender.com/posts")  
       .then((res) => {
          
         const userPosts = res.data.filter((post) => post.user_email === email);

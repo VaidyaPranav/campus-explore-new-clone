@@ -23,7 +23,7 @@ console.log(email);
 
 
 
-      const res = await axios.get(`http://localhost:3002/posts?user_email=${email}`)
+      const res = await axios.get(`https://campus-explore-portal.onrender.com/posts?user_email=${email}`)
       console.log("Posts fetched for:", email, res.data);
       setPosts(res.data);
       if (res.data.length > 0) {

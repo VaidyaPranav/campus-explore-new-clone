@@ -8,7 +8,7 @@ import "../App.css";
 import { useLocation } from "react-router-dom";
 
 // Create socket outside the component
-const socket = io("http://localhost:3002");
+const socket = io("https://campus-explore-portal.onrender.com");
 
 const Chat = () => {
    const [chat, setChat] = useState([]);
@@ -19,7 +19,7 @@ const Chat = () => {
 
   // Fetch old messages on component mount
   useEffect(() => {
-    fetch("http://localhost:3002/messages")
+    fetch("https://campus-explore-portal.onrender.com/messages")
       .then((res) => res.json())
       .then((data) =>
         setChat(
