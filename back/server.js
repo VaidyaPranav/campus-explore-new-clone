@@ -5,7 +5,7 @@ const cors = require("cors");
 const http = require("http");
 const { Server } = require("socket.io");
 const path = require("path");
-
+const fs = require("fs");
 const app = express();
 const port = 3002;
 const httpServer = http.createServer(app);
@@ -16,21 +16,29 @@ const io = new Server(httpServer, {
 app.use(cors());
 app.use(bodyParser.json());
 
-// MySQL Setup
+require('dotenv').config(); // loads .env variables
+
+
+
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "1817",
-  database: "campus_explore",
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+ ssl: {
+    ca: fs.readFileSync(path.join(__dirname, "certs/ca.pem"))
+  }
 });
 
 db.connect((err) => {
   if (err) {
-    console.error("❌ Database connection failed:", err.stack);
-    return;
+    console.error("Database connection failed:", err);
+  } else {
+    console.log("Database connected!");
   }
-  console.log("✅ Connected to database.");
 });
+
 
 // Routes
 const uploadRoute = require("./routes/uploadRoute");
