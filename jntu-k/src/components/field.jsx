@@ -40,23 +40,38 @@ let Field = () => {
                 />
               </div>
               <div className="profile-info">
-                <h2 className="name">{post.name}</h2>
-                <p className="name">{post.user_email}</p>
+                <h2 className="name">{post.name} </h2>
+               
+                
+
+                
                
               </div>
             </div>
             <div className="post-content">
               <p>{post.content}</p>
 
-            
-              {post.media_url && (
-                <img
-                  className="certificate-img"
-                  src={post.media_url}
-                  alt="Uploaded Certificate"
-                  style={{ maxWidth: "70%", height: "auto", marginTop: "10px" }}
-                />
-              )}
+{post.media_url && (
+  post.media_url.endsWith(".mp4") || post.media_url.includes("video/upload") ? (
+    <video
+      controls
+      className="certificate-video"
+      style={{ maxWidth: "70%", height: "auto", marginTop: "10px" }}
+    >
+      <source src={post.media_url} type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  ) : (
+    <img
+      className="certificate-img"
+      src={post.media_url}
+      alt="Uploaded Certificate"
+      style={{ maxWidth: "70%", height: "auto", marginTop: "10px" }}
+    />
+  )
+)}
+
+              
             </div>
             <div className="post-actions">
             </div>

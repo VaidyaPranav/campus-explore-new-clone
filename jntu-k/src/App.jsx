@@ -27,6 +27,8 @@ function App() {
         <Route path ='/Profile' element={<Profile/>}></Route>
         <Route path = '/Livechat' element={<Chat/>}></Route>
         <Route path = '/profile/:email' element={<Frndsprofile/>}></Route>
+        
+
       </Routes>
     </BrowserRouter>
   )

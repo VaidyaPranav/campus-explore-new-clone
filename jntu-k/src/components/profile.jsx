@@ -15,10 +15,10 @@ let Profile = () => {
     if (!email) return;
 
     axios
-      .get("https://campus-explore-portal.onrender.com/posts")  
+      .get("http://localhost:3002/posts")  
       .then((res) => {
          
-        const userPosts = res.data.filter((post) => post.user_email === email);
+        const userPosts = Array.isArray(res.data) ? res.data.filter((post) => post.user_email === email) : [];
         setPosts(userPosts);
       })
       .catch((err) => console.error("❌ Error fetching posts:", err));
@@ -70,13 +70,25 @@ let Profile = () => {
             <div className="post-content">
               <p>{post.content}</p>
               {post.media_url && (
-                <img
-                  className="certificate-img"
-                  src={post.media_url}
-                  alt="Uploaded Certificate"
-                  style={{ maxWidth: "70%", height: "auto", marginTop: "10px" }}
-                />
-              )}
+  post.media_url.match(/\.(mp4|webm|ogg)$/i) ? (
+    <video
+      className="certificate-video"
+      controls
+      style={{ maxWidth: "70%", height: "auto", marginTop: "10px", borderRadius: "10px" }}
+    >
+      <source src={post.media_url} type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  ) : (
+    <img
+      className="certificate-img"
+      src={post.media_url}
+      alt="Uploaded Certificate"
+      style={{ maxWidth: "70%", height: "auto", marginTop: "10px", borderRadius: "10px" }}
+    />
+  )
+)}
+
             </div>
             
           </div>

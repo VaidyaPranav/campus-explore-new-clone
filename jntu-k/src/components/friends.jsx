@@ -55,6 +55,7 @@ function Friends() {
             <h3>{user.name}</h3>
             <h5>{user.role}</h5>
             <p>{user.department}</p>
+            <p>{user.user_name}</p>
 
 <button
   onClick={() =>
@@ -67,7 +68,7 @@ function Friends() {
     })
   }
 >
-  View
+  View posts
 </button>
 
          </div>
