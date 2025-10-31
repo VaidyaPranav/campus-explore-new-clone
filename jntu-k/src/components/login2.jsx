@@ -1,74 +1,76 @@
 import "../App.css";
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-const StudentLogin = () => {
+import {Link,useNavigate} from 'react-router-dom';
+ 
+const Login2 = () => {
   const navigate = useNavigate();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
-  const [department, setDepartment] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+     const [name, setName] = useState('');
+     const [email, setEmail] = useState('');
+     const [password, setPassword] = useState('');
+      const [role , setrole] = useState('');
+        const [department, setdepartment] = useState('');
+      
+   
+     const handleSubmit = async (e) => {
+  e.preventDefault();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  try {
+    const res = await fetch("https://campus-explore-portal.onrender.com/students");
+    const data = await res.json();
 
-    try {
-      // 👇 same structure as faculty — updated backend URL
-      const res = await fetch("https://campus-explore-portal.onrender.com/students");
-      const data = await res.json();
+    console.log("Fetched users:", data);
 
-      console.log("Fetched students:", data);
-
-      if (!Array.isArray(data) || data.length === 0) {
-        alert("No student data found in backend!");
-        return;
-      }
-
-      // normalize values to compare case-insensitively
-      const normalize = (v) => (v ?? "").trim().toLowerCase();
-
-      const foundUser = data.find((u) => {
-        const uname = u.name || u.user_name || "";
-        const uemail = u.email || u.user_email || "";
-        const upass = u.password || u.passwords || "";
-        const urole = u.role || "";
-        const udept = u.department || u.dept || "";
-
-        return (
-          normalize(uname) === normalize(name) &&
-          normalize(uemail) === normalize(email) &&
-          upass.trim() === password.trim() &&
-          normalize(urole) === normalize(role) &&
-          normalize(udept) === normalize(department)
-        );
-      });
-
-      console.log("Matched student user:", foundUser);
-
-      if (!foundUser) {
-        alert("Invalid name, email, password, role, or department!");
-        return;
-      }
-
-      alert("Student login successful!");
-      navigate("/JNTUHUCEJ", {
-        state: {
-          name: foundUser.name || foundUser.user_name,
-          email: foundUser.email || foundUser.user_email,
-          role: foundUser.role,
-          department: foundUser.department || foundUser.dept,
-        },
-      });
-    } catch (err) {
-      console.error("Error:", err);
-      alert("Server error! Please check backend or console.");
+    if (!Array.isArray(data) || data.length === 0) {
+      alert("No users found from backend!");
+      return;
     }
-  };
 
-  return (
-    <>
+    const normalize = (v) => (v ?? "").trim().toLowerCase();
+
+    const foundUser = data.find((u) => {
+      // extract all possible fields
+      const uname = u.name || u.user_name || "";
+      const uemail = u.email || u.user_email || "";
+      const upass = u.password || u.passwords || "";
+      const urole = u.role || "";
+      const udept = u.department || u.dept || "";
+
+      return (
+        normalize(uname) === normalize(name) &&
+        normalize(uemail) === normalize(email) &&
+        upass.trim() === password.trim() &&
+        normalize(urole) === normalize(role) &&
+        normalize(udept) === normalize(department)
+      );
+    });
+
+    console.log("Matched user:", foundUser);
+
+    if (!foundUser) {
+      alert("Name, email, or password is incorrect");
+      return;
+    }
+
+    alert("Login successful!");
+    navigate("/JNTUHUCEJ", {
+      state: {
+        name: foundUser.name || foundUser.user_name,
+        email: foundUser.email || foundUser.user_email,
+        role: foundUser.role,
+        department: foundUser.department || foundUser.dept,
+      },
+    });
+  } catch (err) {
+    console.error("Error:", err);
+    alert("Server error! Check console or backend.");
+  }
+};
+
+     const [showPassword, setShowPassword] = useState(false);
+   
+     return (
+      <>
+
       <header className="custom-header py-4">
         <div className="container d-flex flex-wrap justify-content-center align-items-center">
           <a href="/" className="d-flex align-items-center me-lg-auto text-decoration-none flex-wrap">
@@ -85,37 +87,82 @@ const StudentLogin = () => {
               </div>
             </span>
           </a>
+          <form className="search-form ms-4" role="search" style={{ maxWidth: 250, width: '100%' }}>
+            
+          </form>
         </div>
       </header>
 
-      <div style={{ background: "linear-gradient(90deg, #e3f2fd 0%, #fff 100%)", boxShadow: "0 2px 16px rgba(156, 0, 204, 0.08)" }} className="containers">
-        <div className="registration-form">
-          <h2>Login for Student</h2>
-          <form onSubmit={handleSubmit}>
-            <label>Full Name</label>
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
-
-            <label>Role</label>
-            <input type="text" value={role} onChange={(e) => setRole(e.target.value)} required placeholder="don't use caps" />
-
-            <label>Department</label>
-            <input type="text" value={department} onChange={(e) => setDepartment(e.target.value)} required placeholder="use caps" />
-
-            <label>Email</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-
-            <label>Password</label>
-            <input type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} required />
-
-            <button type="submit" className="register-btn">Login</button>
-          </form>
-        </div>
-        <footer>
-          <p>@ JNTUHUCEJ All rights reserved.</p>
-        </footer>
-      </div>
-    </>
-  );
+       <div  style={{background: "linear-gradient(90deg, #e3f2fd 0%, #fff 100%)",
+    boxShadow:" 0 2px 16px rgba(156, 0, 204, 0.08)"}} className="containers" id="/signin">
+         <div className="logo"></div>
+         <div className="registration-form">
+           <h2>Login for Student</h2>
+           <form onSubmit={handleSubmit}>
+             <label htmlFor="name">Full Name</label>
+             <input
+               type="text"
+               id="name"
+               name="name"
+               required
+               value={name}
+               onChange={(e) => setName(e.target.value)}
+             />
+              <label htmlFor="role">role</label>
+          <input
+            type="text"
+            id="role"
+            name="role"
+            required
+            placeholder="dont use caps"
+            value={role}
+            onChange={(e) => setrole(e.target.value)}
+          />
+    <label htmlFor="dept">Department</label>
+          <input
+            type="text"
+            id="dept"
+            name="dept"
+            required
+            placeholder="use caps"
+            value={department}
+            onChange={(e) => setdepartment(e.target.value)}
+          />
+             <label htmlFor="email">Email</label>
+             <input
+               type="email"
+               id="email"
+               name="email"
+               required
+               value={email}
+               onChange={(e) => setEmail(e.target.value)}
+             />
+   <label htmlFor="password">password</label>
+              <input
+                 type={showPassword ? "text" : "password"}
+                 id="password"
+                 name="password"
+                 required
+                 autoComplete="new-password"
+                 value={password}
+                 onChange={(e) => setPassword(e.target.value)}
+                 style={{ paddingRight: "10px" }}
+               />
+       
+             <button type="submit" className="register-btn"  >
+               Login
+             </button>
+             
+           </form>
+         </div>
+         <footer>
+           <a href="#">Conditions of Use</a> | <a href="#">Privacy Notice</a> |{' '}
+           <a href="#">Help</a>
+           <p>@ JNRUHUCEJ All rights reserved.</p>
+         </footer>
+       </div>
+       </>
+     );
 };
 
-export default StudentLogin;
+export default Login2;

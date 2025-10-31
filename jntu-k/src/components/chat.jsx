@@ -19,7 +19,7 @@ const Chat = () => {
 
   // Fetch old messages on component mount
   useEffect(() => {
-    fetch("https://campus-explore-portal.onrender.com/messages")
+  fetch("https://campus-explore-portal.onrender.com/messages")
       .then((res) => res.json())
       .then((data) =>
         setChat(

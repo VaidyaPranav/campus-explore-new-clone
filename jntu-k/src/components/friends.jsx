@@ -12,9 +12,9 @@ function Friends() {
   const [selecteddepartment, setSelecteddepartment] = useState("IT");
   const location = useLocation();
   const { name, email , role ,department } = location.state || {};
-
+console.log(email, name, role, department);
   useEffect(() => {
-   axios.get(`https://campus-explore-portal.onrender.com/users?department=${selecteddepartment}`)
+  axios.get(`https://campus-explore-portal.onrender.com/users?department=${selecteddepartment}`)
       .then((res) => {
         setUsers(res.data.users);
         console.log(res.data.users);
@@ -64,6 +64,7 @@ function Friends() {
         name: name,
         department:department,
         role: role,
+        email:email,
       },
     })
   }

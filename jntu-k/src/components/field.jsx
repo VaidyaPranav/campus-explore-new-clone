@@ -14,7 +14,7 @@ let Field = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("https://campus-explore-portal.onrender.com/posts");
+  const response = await axios.get("https://campus-explore-portal.onrender.com/posts");
         setPosts(response.data);
       } catch (error) {
         console.error("❌ Failed to fetch posts:", error);

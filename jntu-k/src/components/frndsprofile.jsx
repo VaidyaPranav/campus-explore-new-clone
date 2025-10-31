@@ -14,7 +14,7 @@ const { email } = useParams();
   const [posts, setPosts] = useState([]);
   const [userName, setUserName] = useState("");
   const location = useLocation();
-  const { name, role ,department } = location.state || {};
+  const { name, role, department } = location.state || {};
   console.log(name,role,department);
 console.log(email);
  useEffect(() => {
@@ -23,7 +23,7 @@ console.log(email);
 
 
 
-      const res = await axios.get(`https://campus-explore-portal.onrender.com/posts?user_email=${email}`)
+  const res = await axios.get(`https://campus-explore-portal.onrender.com/posts?user_email=${email}`)
       console.log("Posts fetched for:", email, res.data);
       setPosts(res.data);
       if (res.data.length > 0) {
@@ -74,14 +74,25 @@ console.log(email);
             </div>
             <div className="post-content">
               <p>{post.content}</p>
-              {post.media_url && (
-                <img
-                  className="certificate-img"
-                  src={post.media_url}
-                  alt="Uploaded Certificate"
-                  style={{ maxWidth: "70%", height: "auto", marginTop: "10px" }}
-                />
-              )}
+             {post.media_url && (
+  post.media_url.match(/\.(mp4|webm|ogg)$/i) ? (
+    <video
+      className="certificate-video"
+      controls
+      style={{ maxWidth: "70%", height: "auto", marginTop: "10px", borderRadius: "10px" }}
+    >
+      <source src={post.media_url} type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  ) : (
+    <img
+      className="certificate-img"
+      src={post.media_url}
+      alt="Uploaded Certificate"
+      style={{ maxWidth: "70%", height: "auto", marginTop: "10px", borderRadius: "10px" }}
+    />
+  )
+)}
             </div>
            
           </div>

@@ -10,15 +10,19 @@ let Profile = () => {
   const location = useLocation();
   const { name, email, role, department } = location.state || {};
   const [posts, setPosts] = useState([]);
-
+console.log(email);
+console.log(name);
+console.log(department);
   useEffect(() => {
     if (!email) return;
 
     axios
       .get("https://campus-explore-portal.onrender.com/posts")  
       .then((res) => {
-         
-        const userPosts = Array.isArray(res.data) ? res.data.filter((post) => post.user_email === email) : [];
+        res.data.forEach((post) => {
+          console.log("email:", post.user_email);
+        });
+        const userPosts = res.data.filter((post) => post.user_email === email);
         setPosts(userPosts);
       })
       .catch((err) => console.error("❌ Error fetching posts:", err));
@@ -88,7 +92,6 @@ let Profile = () => {
     />
   )
 )}
-
             </div>
             
           </div>

@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 let Header = () => {
   const location = useLocation();
   const { name, email , role ,department } = location.state || {};
+  console.log(email, name, role, department);
 
     return<>
 
@@ -23,7 +24,9 @@ let Header = () => {
 
             <li className="nav-item"><Link state={{ name, email , role ,department }} to="/Livechat" className="nav-link text-white">Live Chat <IoIosChatbubbles /></Link></li>
             <li className="nav-item"><Link state={{ name, email , role ,department }} to="/Profile" className="nav-link text-white">Profile <MdAccountCircle />
+
 </Link></li>
+        
            </ul>
           
         </div>
