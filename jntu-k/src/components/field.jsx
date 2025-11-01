@@ -20,7 +20,7 @@ let Field = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:3002/posts");
+        const response = await axios.get("https://campus-explore-portal.onrender.com/posts");
         const postsData = response.data;
         setPosts(postsData);
 
@@ -30,10 +30,10 @@ let Field = () => {
         // fetch likes and comments for each post
         for (const post of postsData) {
           const likesRes = await axios.get(
-            `http://localhost:3002/likes/${post.id}`
+            `https://campus-explore-portal.onrender.com/likes/${post.id}`
           );
           const commentsRes = await axios.get(
-            `http://localhost:3002/comments/${post.id}`
+            `https://campus-explore-portal.onrender.com/comments/${post.id}`
           );
           likesObj[post.id] = likesRes.data.totalLikes || 0;
           commentsObj[post.id] = commentsRes.data || [];
@@ -52,7 +52,7 @@ let Field = () => {
   // ❤️ Like / Unlike a post (using your backend /likes/toggle)
   const handleLike = async (postId) => {
     try {
-      const response = await axios.post("http://localhost:3002/likes/toggle", {
+      const response = await axios.post("https://campus-explore-portal.onrender.com/likes/toggle", {
         post_id: postId,
         user_email: email,
       });
@@ -82,7 +82,7 @@ let Field = () => {
       setCommentText((prev) => ({ ...prev, [postId]: "" }));
 
       const commentsRes = await axios.get(
-        `http://localhost:3002/comments/${postId}`
+        `https://campus-explore-portal.onrender.com/comments/${postId}`
       );
       setCommentsData((prev) => ({ ...prev, [postId]: commentsRes.data }));
     } catch (err) {

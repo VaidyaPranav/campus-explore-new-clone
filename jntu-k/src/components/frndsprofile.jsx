@@ -20,7 +20,7 @@ const Frndsprofile = () => {
     const fetchUserPosts = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3002/posts?user_email=${email}`
+          `https://campus-explore-portal.onrender.com/posts?user_email=${email}`
         );
         setPosts(res.data);
 
@@ -29,10 +29,10 @@ const Frndsprofile = () => {
 
         for (const post of res.data) {
           const likesRes = await axios.get(
-            `http://localhost:3002/likes/${post.id}`
+            `https://campus-explore-portal.onrender.com/likes/${post.id}`
           );
           const commentsRes = await axios.get(
-            `http://localhost:3002/comments/${post.id}`
+            `https://campus-explore-portal.onrender.com/comments/${post.id}`
           );
 
           likesObj[post.id] = likesRes.data.totalLikes || 0;
@@ -52,7 +52,7 @@ const Frndsprofile = () => {
   // ❤️ Like/Unlike a post
   const handleLike = async (postId) => {
     try {
-      const response = await axios.post("http://localhost:3002/likes/toggle", {
+      const response = await axios.post("https://campus-explore-portal.onrender.com/likes/toggle", {
         post_id: postId,
         user_email: email,
       });
@@ -75,7 +75,7 @@ const Frndsprofile = () => {
   const handleComment = async (postId) => {
     if (!commentText[postId]?.trim()) return;
     try {
-      await axios.post("http://localhost:3002/comments", {
+      await axios.post("https://campus-explore-portal.onrender.com/comments", {
         post_id: postId,
         user_email: email,
         comment_text: commentText[postId],
@@ -84,7 +84,7 @@ const Frndsprofile = () => {
       setCommentText((prev) => ({ ...prev, [postId]: "" }));
 
       const commentsRes = await axios.get(
-        `http://localhost:3002/comments/${postId}`
+        `https://campus-explore-portal.onrender.com/comments/${postId}`
       );
       setCommentsData((prev) => ({ ...prev, [postId]: commentsRes.data }));
     } catch (err) {

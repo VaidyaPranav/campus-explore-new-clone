@@ -19,7 +19,7 @@ const Profile = () => {
     if (!email) return;
     const fetchUserPosts = async () => {
       try {
-        const res = await axios.get("http://localhost:3002/posts");
+        const res = await axios.get("https://campus-explore-portal.onrender.com/posts");
         const userPosts = res.data.filter((post) => post.user_email === email);
         setPosts(userPosts);
 
@@ -28,10 +28,10 @@ const Profile = () => {
 
         for (const post of userPosts) {
           const likesRes = await axios.get(
-            `http://localhost:3002/likes/${post.id}`
+            `https://campus-explore-portal.onrender.com/likes/${post.id}`
           );
           const commentsRes = await axios.get(
-            `http://localhost:3002/comments/${post.id}`
+            `https://campus-explore-portal.onrender.com/comments/${post.id}`
           );
           likesObj[post.id] = likesRes.data.totalLikes || 0;
           commentsObj[post.id] = commentsRes.data || [];
@@ -50,7 +50,7 @@ const Profile = () => {
   // ❤️ Like toggle
   const handleLike = async (postId) => {
     try {
-      const response = await axios.post("http://localhost:3002/likes/toggle", {
+      const response = await axios.post("https://campus-explore-portal.onrender.com/likes/toggle", {
         post_id: postId,
         user_email: email,
       });
@@ -72,7 +72,7 @@ const Profile = () => {
   const handleDelete = async (postId) => {
     if (!window.confirm("Are you sure you want to delete this post?")) return;
     try {
-      await axios.delete(`http://localhost:3002/posts/${postId}`);
+      await axios.delete(`https://campus-explore-portal.onrender.com/posts/${postId}`);
       setPosts((prev) => prev.filter((p) => p.id !== postId));
     } catch (error) {
       console.error("Error deleting post:", error);
@@ -83,7 +83,7 @@ const Profile = () => {
   const handleComment = async (postId) => {
     if (!commentText[postId]?.trim()) return;
     try {
-      await axios.post("http://localhost:3002/comments", {
+      await axios.post("https://campus-explore-portal.onrender.com/comments", {
         post_id: postId,
         user_email: email,
         comment_text: commentText[postId],
@@ -92,7 +92,7 @@ const Profile = () => {
       setCommentText((prev) => ({ ...prev, [postId]: "" }));
 
       const commentsRes = await axios.get(
-        `http://localhost:3002/comments/${postId}`
+        `https://campus-explore-portal.onrender.com/comments/${postId}`
       );
       setCommentsData((prev) => ({ ...prev, [postId]: commentsRes.data }));
     } catch (err) {

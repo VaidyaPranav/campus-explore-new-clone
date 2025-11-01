@@ -14,7 +14,7 @@ const FacultyLogin = () => {
     e.preventDefault();
 
     try {
-  const res = await fetch("http://localhost:3002/faculty");
+  const res = await fetch("https://campus-explore-portal.onrender.com/faculty");
       const data = await res.json();
 
       console.log("Fetched faculty users:", data);
