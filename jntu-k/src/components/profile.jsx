@@ -238,17 +238,15 @@ const Profile = () => {
               {showComments[post.id] && (
                 <div
                   className="comments-section"
-                 style={{
-    marginTop: "15px",
-    padding: "15px",
-    background: "#f5f6fa",
-    borderRadius: "12px",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-    maxHeight: "300px",
-    overflowY: "auto",
-    position: "relative",
-    zIndex: 2,
-  }}
+                  style={{
+                    marginTop: "15px",
+                    padding: "15px",
+                    background: "#f5f6fa",
+                    borderRadius: "12px",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                    maxHeight: "300px",
+                    overflowY: "auto",
+                  }}
                 >
                   {commentsData[post.id]?.length > 0 ? (
                     commentsData[post.id].map((c) => (

@@ -106,7 +106,11 @@ let Field = () => {
 
       <div className="hi">
         {posts.map((post) => (
-          <div className="post-card" key={post.id}>
+          <div
+            className="post-card"
+            key={post.id}
+            style={{ position: "relative" }} // make post-card a positioned container for the absolute overlay
+          >
             {/* Post Header */}
             <div className="post-header">
               <div className="profile-pic">
@@ -127,14 +131,17 @@ let Field = () => {
 
             {/* Post Content */}
             <div className="post-content">
-                <p>{post.content}</p>
-                {post.media_url && (
+              <p>{post.content}</p>
+              {post.media_url && (
                 <div
                   style={{
                     width: "100%",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+                    flexDirection: window.innerWidth < 768 ? "column" : "row",
+                    maxWidth: "100%",
+                    margin: "0 auto",
                   }}
                 >
                   {post.media_url.endsWith(".mp4") ||
@@ -161,7 +168,7 @@ let Field = () => {
                       style={{
                         maxWidth: "100%",
                         height: "75%",
-                        minHeight:"400px",
+                        minHeight: "400px",
                         margin: "0 auto",
                         borderRadius: "10px",
                         display: "block",
@@ -170,7 +177,7 @@ let Field = () => {
                   )}
                 </div>
               )}
-              </div>
+            </div>
 
             {/* Post Actions */}
             <div
@@ -212,17 +219,20 @@ let Field = () => {
             {showComments[post.id] && (
               <div
                 className="comments-section"
-                 style={{
-    marginTop: "15px",
-    padding: "15px",
-    background: "#f5f6fa",
-    borderRadius: "12px",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-    maxHeight: "300px",
-    overflowY: "auto",
-    position: "relative",
-    zIndex: 2,
-  }}
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  right: 0,
+                  top: "calc(100% + 10px)", // place it below the post and overlay subsequent posts
+                  zIndex: 999,
+                  padding: "15px",
+                  background: "#f5f6fa",
+                  borderRadius: "12px",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                  maxHeight: "300px",
+                  overflowY: "auto",
+                  width: "100%",
+                }}
               >
                 {commentsData[post.id]?.length > 0 ? (
                   commentsData[post.id].map((c) => (

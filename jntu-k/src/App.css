@@ -515,6 +515,25 @@ footer p {
   max-height: 600px;
   padding: 20px;
   box-sizing: border-box;
+  /* allow comment panels to overflow and overlay other posts */
+  position: relative;
+  overflow: visible;
+}
+
+/* Ensure comment panel overlays other posts on larger screens too */
+.post-card .comments-section {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 9999;
+  margin-top: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+  background: #f5f6fa;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
 }
 
 .post-header {
@@ -598,7 +617,8 @@ max-width: 410px;
   .post-card {
     padding: 0.8rem;
     border-radius: 12px;
-    overflow: hidden;
+    /* allow comments to overflow and overlay following posts on small screens */
+    overflow: visible;
     box-sizing: border-box;
   }
 
@@ -645,6 +665,26 @@ max-width: 410px;
     height: auto;
     border-radius: 8px;
     object-fit: contain;
+  }
+
+  /* Ensure comment panel overlays other posts on small screens */
+  .post-card {
+    position: relative; /* establish containing block for absolute comments */
+  }
+
+  .post-card .comments-section {
+    position: absolute;
+    top: 100%; /* place directly below the post card and overlay following content */
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 9999;
+    margin-top: 10px;
+    max-height: 300px; /* keep scrollable */
+    overflow-y: auto;
+    background: #f5f6fa;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
   }
 }
 .friends-container {
@@ -1222,25 +1262,3 @@ margin-left: 2rem;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       }
 /* Responsive padding */
-@media (max-width: 480px) {
-  .explore {
-    padding: 1rem;
-  }
-
-  .role-buttons {
-    gap: 0.5rem;
-  }
-
-  .user-card img {
-    width: 80px;
-    height: 80px;
-  }
-
-  .user-card h3 {
-    font-size: 1rem;
-  }
-
-  .user-card p {
-    font-size: 0.85rem;
-  }
-}

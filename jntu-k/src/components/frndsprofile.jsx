@@ -110,8 +110,6 @@ const Frndsprofile = () => {
                     src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
                     alt="Default Profile"
                   />
-                </div>
-                <div className="profile-info">
                   <h2 className="name">{post.name}</h2>
                 </div>
               </div>
@@ -203,16 +201,14 @@ const Frndsprofile = () => {
                 <div
                   className="comments-section"
                   style={{
-    marginTop: "15px",
-    padding: "15px",
-    background: "#f5f6fa",
-    borderRadius: "12px",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-    maxHeight: "300px",
-    overflowY: "auto",
-    position: "relative",
-    zIndex: 2,
-  }}
+                    marginTop: "15px",
+                    padding: "15px",
+                    background: "#f5f6fa",
+                    borderRadius: "12px",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                    maxHeight: "300px",
+                    overflowY: "auto",
+                  }}
                 >
                   {commentsData[post.id]?.length > 0 ? (
                     commentsData[post.id].map((c) => (

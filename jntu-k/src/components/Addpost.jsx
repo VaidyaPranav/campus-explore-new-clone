@@ -47,7 +47,7 @@ console.log(role);
     <Header></Header>
     <form onSubmit={handleSubmit} className="post-form">
   <div className="post-header">
-    <img src="profile.jpg" alt="Profile" className="profile-img" />
+    
     <div className="user-info">
       <p className="user-name">{name}</p>
       <p className="post-hint">Share your thoughts</p>
