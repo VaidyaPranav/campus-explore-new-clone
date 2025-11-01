@@ -1,5 +1,15 @@
 
-{
-  "name": "Alice",
-  "email": "alice@example.com"
-}
+[
+  {
+    "name": "Alice",
+    "email": "alice@example.com"
+  },
+  {
+    "post_id": 2,
+    "user_email": "vaidyapranav987@gmail.com",
+    "comment_text": "Nice post!"
+  },
+  {
+    "message": "Comment added successfully"
+  }
+]

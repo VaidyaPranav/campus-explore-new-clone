@@ -14,7 +14,7 @@ function Friends() {
   const { name, email , role ,department } = location.state || {};
 console.log(email, name, role, department);
   useEffect(() => {
-  axios.get(`https://campus-explore-portal.onrender.com/users?department=${selecteddepartment}`)
+  axios.get(`http://localhost:3002/users?department=${selecteddepartment}`)
       .then((res) => {
         setUsers(res.data.users);
         console.log(res.data.users);
