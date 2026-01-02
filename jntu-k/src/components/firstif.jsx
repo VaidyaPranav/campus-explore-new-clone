@@ -14,6 +14,16 @@ let Firstif = () => {
     const Handestu = () => {
         navigate("/studentlogin");
     };
+    const HandleGuest = () => {
+      navigate("/JNTUHUCEJ", {
+        state: {
+          name: "guest",
+          email: "guest@gmail.com",
+          role: undefined,
+          department: undefined,
+        }
+      });
+    };
 
     return (
         <>
@@ -49,6 +59,9 @@ let Firstif = () => {
                     </button>
                     <button onClick={Handestu} className="btn btn-primary d-inline-flex align-items-center" type="button" style={{ width: "180px", fontSize: "1.1rem", fontWeight: "500", borderRadius: "0.5rem" }}>
                         Student
+                    </button>
+                      <button onClick={HandleGuest} className="btn btn-secondary d-inline-flex align-items-center" type="button" style={{ width: "180px", fontSize: "1.1rem", fontWeight: "500", borderRadius: "0.5rem" }}>
+                        Guest
                     </button>
                 </div>
             </div>
