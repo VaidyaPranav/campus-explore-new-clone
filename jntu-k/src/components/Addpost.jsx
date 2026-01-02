@@ -71,7 +71,9 @@ console.log(role);
 
 
   <button type="submit" className="post-btn">Post</button>
+
 </form>
+<center><p>wait for some time till the posed popup comes or else try after some time.</p></center>
 <Footer></Footer>
 </>
   );
