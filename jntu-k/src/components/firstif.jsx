@@ -63,7 +63,7 @@ let Firstif = () => {
                       <button onClick={HandleGuest} className="btn btn-secondary d-inline-flex align-items-center" type="button" style={{ width: "180px", fontSize: "1.1rem", fontWeight: "500", borderRadius: "0.5rem" }}>
                         Guest 
                     </button>
-                    <center><p>[A guest cant upload posts , like and comment on posts]</p></center>
+                    <center><p>[Guest users can view content but cannot upload posts, like, or comment.]</p></center>
                 </div>
             </div>
         </>
